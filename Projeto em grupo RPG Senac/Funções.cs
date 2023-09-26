@@ -55,6 +55,7 @@ namespace Projeto_em_grupo_RPG_Senac
         }
         public static void Inicio()
         {
+
             int AlturaConsole = Console.WindowHeight;
             int LarguraConsole = Console.WindowWidth;
             int AcharMaior = 0;
@@ -364,13 +365,6 @@ namespace Projeto_em_grupo_RPG_Senac
                 Console.SetCursorPosition(4, Console.CursorTop);
                 goto responder;
             }
-        }
-    }
-    internal class História
-    {
-        public static void Mulher()
-        {
-
         }
     }
     internal class Banco
@@ -1095,7 +1089,7 @@ namespace Projeto_em_grupo_RPG_Senac
                 }
                 else if (i == 1)
                 {
-                    Console.Write("│        ITEMS        │");
+                    Console.Write("│        ITENS        │");
                 }
                 else if (i == 11)
                 {
@@ -1141,7 +1135,7 @@ namespace Projeto_em_grupo_RPG_Senac
                 }
                 else if (Banco.Item.Ler.Munição() > 0 && Munição == false)
                 {
-                    Console.Write($"Munição: {Banco.Item.Ler.Munição(),2}");
+                    Console.Write($"Pente de munição: {Banco.Item.Ler.Munição(),2}");
                     Munição = true;
                 }
                 else if (Banco.Item.Ler.PeçaDeRádio() > 0 && PeçaDeRádio == false)

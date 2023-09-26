@@ -1,6 +1,7 @@
 ﻿using Projeto_em_grupo_RPG_Senac;
 using System;
 using System.Text;
+using static Projeto_em_grupo_RPG_Senac.Banco;
 
 
 // Pra fazer
@@ -14,10 +15,6 @@ class Program
         // UTF-8
         Console.OutputEncoding = Encoding.UTF8;
 
-        // Cria o banco de dados
-        Banco.Run();
-        Banco.Reset();
-
         // Desativando barra de escrita visível
 
         Console.CursorVisible = false;
@@ -26,15 +23,20 @@ class Program
 
         Menus.MensagemMaximizar();
 
-        // Menu Principal
+    // Menu Principal
 
-        MenuPrincipal:
+    MenuPrincipal:
 
         Menus.Inicio();
 
-        // Jogo
+    // Jogo
 
-        PontoZero:
+    PontoZero:
+        // Cria o banco de dados
+        Banco.Run();
+
+        // Reseta o banco de dados
+        Banco.Reset();
 
         Usual.Escrever("Sob o manto noturno, os motores rugiam enquanto o Capitão Antoine Lefevre manobrava seu caça. \nEm um instante fatídico, o avião foi atingido, levando-o a uma queda desesperada. \nCom habilidade e coragem, guiou a máquina danificada para uma clareira perto de Paris, sua amada cidade agora sob o domínio nazista. \nA batalha pela liberdade ganhava um novo protagonista, determinado a trazer esperança a uma nação oprimida." +
             "\n\n[1] Tentar pedir ajuda pelo rádio" +
@@ -118,11 +120,15 @@ class Program
                                                             "\n\n- (1) Lata de comida" +
                                                             "\n- (1) Vodka" +
                                                             "\n\nAntes de você partir, ela diz conhecer um lugar onde você pode encontrar a peça necessária para consertar o rádio do avião." +
-                                                            "\n\n[1] Ir até o local", ReadKey: true);
+                                                            "\n\n[1] Ir até o local");
+
+                                                        Banco.Item.Atualizar.LataDeComida(1);
+                                                        Banco.Item.Atualizar.Vodka(1);
+
                                                         break;
                                                     case 2:
                                                         Usual.Escrever("A mulher fica assustada, e te dá a informação de onde você pode encontrar a peça do rádio do avião." +
-                                                            "\n\n[1] Ir até o local", ReadKey: true);
+                                                            "\n\n[1] Ir até o local");
                                                         Usual.Escolha(1);
                                                         break;
                                                 }
@@ -494,6 +500,31 @@ class Program
                                                             case 1:
                                                                 // Mulher (de novo)
 
+                                                                Usual.Escrever("Você entra na casa..." +
+                                                                "\n\nE se depara com uma mulher." +
+                                                                "\n\n[1] Pedir ajuda" +
+                                                                "\n[2] Ameaçar para conseguir informações"); // A PARTIR DAQUI, FUNÇÃO MULHER
+
+                                                                switch (Usual.Escolha(2))
+                                                                {
+                                                                    case 1:
+                                                                        Usual.Escrever("Você pede ajuda à mulher e diz tudo o que aconteceu com você. Ela tem compaixão de sua situação, e te dá comida e bebida, mas diz que não pode ficar aqui. " +
+                                                                            "\n\n- (1) Lata de comida" +
+                                                                            "\n- (1) Vodka" +
+                                                                            "\n\nAntes de você partir, ela diz conhecer um lugar onde você pode encontrar a peça necessária para consertar o rádio do avião." +
+                                                                            "\n\n[1] Ir até o local");
+
+                                                                        Banco.Item.Atualizar.LataDeComida(1);
+                                                                        Banco.Item.Atualizar.Vodka(1);
+
+                                                                        break;
+                                                                    case 2:
+                                                                        Usual.Escrever("A mulher fica assustada, e te dá a informação de onde você pode encontrar a peça do rádio do avião." +
+                                                                            "\n\n[1] Ir até o local");
+                                                                        Usual.Escolha(1);
+                                                                        break;
+                                                                }
+
                                                                 break;
                                                             case 2:
                                                                 Usual.Escrever("Você conseguiu:" +
@@ -502,6 +533,8 @@ class Program
                                                                     "\n- (1) Frasco suspeito");
 
                                                                 Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 3);
+                                                                Banco.Item.Atualizar.CapaceteUsado(Banco.Item.Ler.CapaceteUsado() + 1);
+                                                                Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() + 1);
                                                                 goto SoldadoExecutado;
                                                         }
                                                         break;
@@ -522,7 +555,9 @@ class Program
                     case 2:
                         Usual.Escrever("Você anda por um bom tempo, até que escuta um barulho vindo de dentro de uma das casas." +
                             "\n\n[1] Entrar na casa");
-                        // FUNÇÃO MULHER
+                        
+
+
                         break;
                 }
                 break;
