@@ -55,7 +55,6 @@ namespace Projeto_em_grupo_RPG_Senac
         }
         public static void Inicio()
         {
-
             int AlturaConsole = Console.WindowHeight;
             int LarguraConsole = Console.WindowWidth;
             int AcharMaior = 0;
@@ -121,6 +120,7 @@ namespace Projeto_em_grupo_RPG_Senac
 
             Console.ReadKey();
             Console.Clear();
+            Banco.Reset();
         }
         public static void GameOver()
         {
@@ -503,7 +503,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string updateQuery = $"UPDATE jogador SET jog_nome = \"{Nome}\" WHERE jog_id = 1;";
+                        string updateQuery = $"UPDATE jogador SET jog_nome = \"{Nome}\" WHERE jog_id >= 0;";
 
                         using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
                         {
@@ -521,7 +521,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string updateQuery = $"UPDATE jogador SET jog_hp = {Valor} WHERE jog_id = 1;";
+                        string updateQuery = $"UPDATE jogador SET jog_hp = {Valor} WHERE jog_id >= 0;";
 
                         using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
                         {
@@ -539,7 +539,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string updateQuery = $"UPDATE jogador SET jog_hp = {Valor} WHERE jog_id = 1;";
+                        string updateQuery = $"UPDATE jogador SET jog_ata = {Valor} WHERE jog_id >= 0;";
 
                         using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
                         {
@@ -557,7 +557,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string updateQuery = $"UPDATE jogador SET jog_hp = {Valor} WHERE jog_id = 1;";
+                        string updateQuery = $"UPDATE jogador SET jog_def = {Valor} WHERE jog_id >= 0;";
 
                         using (SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, connection))
                         {
@@ -579,7 +579,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string selectQuery = "SELECT jog_nome FROM jogador WHERE jog_id = 1;";
+                        string selectQuery = "SELECT jog_nome FROM jogador WHERE jog_id >= 0;";
 
                         using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                         {
@@ -605,7 +605,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string selectQuery = "SELECT jog_hp FROM jogador WHERE jog_id = 1;";
+                        string selectQuery = "SELECT jog_hp FROM jogador WHERE jog_id >= 0;";
 
                         using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                         {
@@ -631,7 +631,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string selectQuery = "SELECT jog_ata FROM jogador WHERE jog_id = 1;";
+                        string selectQuery = "SELECT jog_ata FROM jogador WHERE jog_id >= 0;";
 
                         using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                         {
@@ -657,7 +657,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string selectQuery = "SELECT jog_def FROM jogador WHERE jog_id = 1;";
+                        string selectQuery = "SELECT jog_def FROM jogador WHERE jog_id >= 0;";
 
                         using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                         {
@@ -687,9 +687,9 @@ namespace Projeto_em_grupo_RPG_Senac
                     {
                         connection.Open();
 
-                        string[] Itens = {"lata de comida", "vodka", "frasco suspeito", "capacete usado", "munição", "granada", "faca", "peça de rádio"};
+                        string[] Itens = { "lata de comida", "vodka", "frasco suspeito", "capacete usado", "munição", "granada", "faca", "peça de rádio" };
 
-                        foreach(string str in Itens)
+                        foreach (string str in Itens)
                         {
                             string updateQuery = $"UPDATE item SET item_quant = {Quantidade} WHERE item_nome = \"{str}\";";
 
@@ -1063,7 +1063,7 @@ namespace Projeto_em_grupo_RPG_Senac
     }
     internal class Info
     {
-        public static void Run() 
+        public static void Run()
         {
             int LeftAtual = Console.CursorLeft;
             int TopAtual = Console.CursorTop;
@@ -1072,9 +1072,9 @@ namespace Projeto_em_grupo_RPG_Senac
             Console.SetCursorPosition(Console.WindowWidth - 13, Console.WindowHeight - 20);
             Console.Write("┌───────────┐");
             Console.SetCursorPosition(Console.WindowWidth - 13, Console.WindowHeight - 19);
-            Console.Write($"│ HP: {Banco.Jogador.Ler.HP(), 3}   │");
+            Console.Write($"│ HP: {Banco.Jogador.Ler.HP(),3}   │");
             Console.SetCursorPosition(Console.WindowWidth - 13, Console.WindowHeight - 18);
-            Console.Write($"│ ATA: {Banco.Jogador.Ler.ATA(), 3}  │");
+            Console.Write($"│ ATA: {Banco.Jogador.Ler.ATA(),3}  │");
             Console.SetCursorPosition(Console.WindowWidth - 13, Console.WindowHeight - 17);
             Console.Write($"│ DEF: {Banco.Jogador.Ler.DEF(),3}  │");
             Console.SetCursorPosition(Console.WindowWidth - 13, Console.WindowHeight - 16);
@@ -1089,7 +1089,7 @@ namespace Projeto_em_grupo_RPG_Senac
                 }
                 else if (i == 1)
                 {
-                    Console.Write("│        ITENS        │");
+                    Console.Write("│        ITEMS        │");
                 }
                 else if (i == 11)
                 {
@@ -1135,7 +1135,7 @@ namespace Projeto_em_grupo_RPG_Senac
                 }
                 else if (Banco.Item.Ler.Munição() > 0 && Munição == false)
                 {
-                    Console.Write($"Pente de munição: {Banco.Item.Ler.Munição(),2}");
+                    Console.Write($"Munição: {Banco.Item.Ler.Munição(),2}");
                     Munição = true;
                 }
                 else if (Banco.Item.Ler.PeçaDeRádio() > 0 && PeçaDeRádio == false)

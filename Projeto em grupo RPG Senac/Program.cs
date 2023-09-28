@@ -1,5 +1,4 @@
 ﻿using Projeto_em_grupo_RPG_Senac;
-using System;
 using System.Text;
 using static Projeto_em_grupo_RPG_Senac.Banco;
 
@@ -23,6 +22,9 @@ class Program
 
         Menus.MensagemMaximizar();
 
+        // Cria o banco de dados
+        Banco.Run();
+
     // Menu Principal
 
     MenuPrincipal:
@@ -32,17 +34,11 @@ class Program
     // Jogo
 
     PontoZero:
-        // Cria o banco de dados
-        Banco.Run();
-
-        // Reseta o banco de dados
-        Banco.Reset();
 
         Usual.Escrever("Sob o manto noturno, os motores rugiam enquanto o Capitão Antoine Lefevre manobrava seu caça. \nEm um instante fatídico, o avião foi atingido, levando-o a uma queda desesperada. \nCom habilidade e coragem, guiou a máquina danificada para uma clareira perto de Paris, sua amada cidade agora sob o domínio nazista. \nA batalha pela liberdade ganhava um novo protagonista, determinado a trazer esperança a uma nação oprimida." +
             "\n\n[1] Tentar pedir ajuda pelo rádio" +
             "\n[2] Pegar seu equipamento e ir em direção à cidade para tentar se abrigar" +
             "\n[3] Tentar consertar seu avião");
-
         switch (Usual.Escolha(3))
         {
             case 1:
@@ -57,7 +53,7 @@ class Program
                 switch (Usual.Escolha(2))
                 {
                     case 1: // OK, SÓ FALTA TERMINAR PARTE DA MULHER E LUTAS
-                        Casa:
+                    Casa:
 
                         Usual.Escrever("Você entra na casa... Ela aparentemente está vazia." +
                             "\n\n[1] Checar se a casa está realmente vazia (reconhecimento do território)" +
@@ -122,8 +118,8 @@ class Program
                                                             "\n\nAntes de você partir, ela diz conhecer um lugar onde você pode encontrar a peça necessária para consertar o rádio do avião." +
                                                             "\n\n[1] Ir até o local");
 
-                                                        Banco.Item.Atualizar.LataDeComida(1);
-                                                        Banco.Item.Atualizar.Vodka(1);
+                                                        Item.Atualizar.LataDeComida(Item.Ler.LataDeComida() + 1);
+                                                        Item.Atualizar.Vodka(Item.Ler.Vodka() + 1);
 
                                                         break;
                                                     case 2:
@@ -330,11 +326,12 @@ class Program
                                                                                 {
                                                                                     Usual.Escrever("A lata de comida não fez efeito.");
                                                                                 }
-                                                                            } else
+                                                                            }
+                                                                            else
                                                                             {
                                                                                 Usual.Escrever("Você não possui uma lata de comida.");
                                                                             }
- 
+
                                                                             break;
                                                                         case 2:
                                                                             if (Banco.Item.Ler.Vodka() > 0)
@@ -399,7 +396,7 @@ class Program
 
                                                                             break;
                                                                     }
-                                                                break;
+                                                                    break;
                                                             }
 
                                                             // Ataque ou defesa do inimigo
@@ -489,7 +486,7 @@ class Program
 
                                                         break;
                                                     case 2:
-                                                        SoldadoExecutado:
+                                                    SoldadoExecutado:
 
                                                         Usual.Escrever("Você parte pra cima do soldado inimigo e... consegue executar ele. Então, você percebe que a porta dos fundos está livre e decide fugir dali." +
                                                             "\n\nVocê anda por um bom tempo, até que escuta um barulho vindo de uma das casas." +
@@ -555,7 +552,7 @@ class Program
                     case 2:
                         Usual.Escrever("Você anda por um bom tempo, até que escuta um barulho vindo de dentro de uma das casas." +
                             "\n\n[1] Entrar na casa");
-                        
+
 
 
                         break;
@@ -569,6 +566,6 @@ class Program
                 goto PontoZero;
         }
 
-        Console.ReadKey(); 
+        Console.ReadKey();
     }
 }
