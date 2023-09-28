@@ -52,7 +52,7 @@ class Program
                     "\n[2] Continuar andando, à procura de ajuda");
                 switch (Usual.Escolha(2))
                 {
-                    case 1: // OK, SÓ FALTA TERMINAR PARTE DA MULHER E LUTAS
+                    case 1:
                     Casa:
 
                         Usual.Escrever("Você entra na casa... Ela aparentemente está vazia." +
@@ -159,47 +159,49 @@ class Program
 
                                                         break;
                                                     case 2:
-                                                    SoldadoExecutado:
-
                                                         bool partiu = false;
 
-                                                        if (partiu)
+                                                        while (true)
                                                         {
-                                                            Usual.Escrever("Você parte pra cima do soldado inimigo e... consegue executar ele. Então, você percebe que a porta dos fundos está livre e decide fugir dali." +
-                                                            "\n\nVocê anda por um bom tempo, até que escuta um barulho vindo de uma das casas." +
-                                                            "\n\n[1] Entrar na casa");
-                                                            switch (Usual.Escolha(1))
+                                                            if (partiu)
                                                             {
-                                                                case 1:
-                                                                    História.Mulher();
-                                                                    goto MenuPrincipal;
+                                                                Usual.Escrever("Você parte pra cima do soldado inimigo e... consegue executar ele. Então, você percebe que a porta dos fundos está livre e decide fugir dali." +
+                                                                "\n\nVocê anda por um bom tempo, até que escuta um barulho vindo de uma das casas." +
+                                                                "\n\n[1] Entrar na casa");
+                                                                switch (Usual.Escolha(1))
+                                                                {
+                                                                    case 1:
+                                                                        História.Mulher();
+                                                                        goto MenuPrincipal;
+                                                                }
                                                             }
-                                                        } else
-                                                        {
-                                                            Usual.Escrever("Você parte pra cima do soldado inimigo e... consegue executar ele. Então, você percebe que a porta dos fundos está livre e decide fugir dali." +
-                                                            "\n\nVocê anda por um bom tempo, até que escuta um barulho vindo de uma das casas." +
-                                                            "\n\n[1] Entrar na casa" +
-                                                            "\n[2] Pilhar o corpo");
-                                                            switch (Usual.Escolha(2))
+                                                            else
                                                             {
-                                                                case 1:
-                                                                    História.Mulher();
-                                                                    goto MenuPrincipal;
-                                                                case 2:
-                                                                    Usual.Escrever("Você conseguiu:" +
-                                                                        "\n\n- (3) Pente de munição" +
-                                                                        "\n- (1) Capacete usado" +
-                                                                        "\n- (1) Frasco suspeito");
+                                                                Usual.Escrever("Você parte pra cima do soldado inimigo e... consegue executar ele. Então, você percebe que a porta dos fundos está livre e decide fugir dali." +
+                                                                "\n\nVocê anda por um bom tempo, até que escuta um barulho vindo de uma das casas." +
+                                                                "\n\n[1] Entrar na casa" +
+                                                                "\n[2] Pilhar o corpo");
+                                                                switch (Usual.Escolha(2))
+                                                                {
+                                                                    case 1:
+                                                                        História.Mulher();
+                                                                        goto MenuPrincipal;
+                                                                    case 2:
+                                                                        Usual.Escrever("Você conseguiu:" +
+                                                                            "\n\n- (3) Pente de munição" +
+                                                                            "\n- (1) Capacete usado" +
+                                                                            "\n- (1) Frasco suspeito");
 
-                                                                    Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 3);
-                                                                    Banco.Item.Atualizar.CapaceteUsado(Banco.Item.Ler.CapaceteUsado() + 1);
-                                                                    Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() + 1);
+                                                                        Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 3);
+                                                                        Banco.Item.Atualizar.CapaceteUsado(Banco.Item.Ler.CapaceteUsado() + 1);
+                                                                        Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() + 1);
 
-                                                                    partiu = true;
-                                                                    goto SoldadoExecutado;
+                                                                        partiu = true;
+
+                                                                        break;
+                                                                }
                                                             }
                                                         }
-                                                        break;
                                                 }
                                                 break;
                                         }

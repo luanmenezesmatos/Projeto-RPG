@@ -1164,7 +1164,7 @@ namespace Projeto_em_grupo_RPG_Senac
                         "\n\n- (1) Lata de comida" +
                         "\n- (1) Vodka" +
                         "\n\nAntes de você partir, ela diz conhecer um lugar onde você pode encontrar a peça necessária para consertar o rádio do avião." +
-                        "\n\n[1] Ir até o local");
+                        "\n\n[1] Ir até o local", ReadKey: true);
 
                     Item.Atualizar.LataDeComida(Item.Ler.LataDeComida() + 1);
                     Item.Atualizar.Vodka(Item.Ler.Vodka() + 1);
@@ -1195,7 +1195,9 @@ namespace Projeto_em_grupo_RPG_Senac
                     bool defesa = false;
                     Random randint = new Random();
 
-                    while (true)
+                    bool inimigoDerrotado = false; // Variável de controle para saber se o inimigo foi derrotado
+
+                    while (!inimigoDerrotado)
                     {
                         Usual.Escrever("\n\nSelecione uma ação:" +
                         "\n\n[1] Ataque" +
@@ -1316,6 +1318,7 @@ namespace Projeto_em_grupo_RPG_Senac
                             Usual.Escrever("Você derrotou o nazista! Fim da batalha.", ReadKey: true);
 
                             Menus.Victory();
+                            inimigoDerrotado = true;
                         }
                     }
                 case 2:
@@ -1329,7 +1332,9 @@ namespace Projeto_em_grupo_RPG_Senac
 
                     Random randint2 = new Random();
 
-                    while (true)
+                    bool inimigoDerrotado2 = false; // Variável de controle para saber se o inimigo foi derrotado
+
+                    while (!inimigoDerrotado2)
                     {
                         Usual.Escrever("\n\nSelecione uma ação:" +
                         "\n\n[1] Ataque" +
@@ -1374,6 +1379,7 @@ namespace Projeto_em_grupo_RPG_Senac
                                             else
                                             {
                                                 Usual.Escrever("A lata de comida não fez efeito.");
+                                                Banco.Item.Atualizar.LataDeComida(Banco.Item.Ler.LataDeComida() - 1);
                                             }
                                         }
                                         else
@@ -1395,6 +1401,7 @@ namespace Projeto_em_grupo_RPG_Senac
                                             else
                                             {
                                                 Usual.Escrever("A vodka não fez efeito.");
+                                                Banco.Item.Atualizar.Vodka(Banco.Item.Ler.Vodka() - 1);
                                             }
                                         }
                                         else
@@ -1416,6 +1423,7 @@ namespace Projeto_em_grupo_RPG_Senac
                                             else
                                             {
                                                 Usual.Escrever("O frasco suspeito não fez efeito.");
+                                                Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() - 1);
                                             }
                                         }
                                         else
@@ -1436,6 +1444,7 @@ namespace Projeto_em_grupo_RPG_Senac
                                             else
                                             {
                                                 Usual.Escrever("A granada falhou em causar dano.");
+                                                Banco.Item.Atualizar.Granada(Banco.Item.Ler.Granada() - 1);
                                             }
                                         }
                                         else
@@ -1477,8 +1486,10 @@ namespace Projeto_em_grupo_RPG_Senac
                             Usual.Escrever("Você derrotou o esquadrão! Fim da batalha.", ReadKey: true);
 
                             Menus.Victory();
+                            inimigoDerrotado2 = true;
                         }
                     }
+                    break;
             }
         }
     }
