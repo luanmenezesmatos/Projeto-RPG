@@ -425,7 +425,7 @@ namespace Projeto_em_grupo_RPG_Senac
                     insertCommand.Parameters.AddWithValue("@nome", "Jorginho");
                     insertCommand.Parameters.AddWithValue("@hp", 40);
                     insertCommand.Parameters.AddWithValue("@ata", 15);
-                    insertCommand.Parameters.AddWithValue("@def", 20);
+                    insertCommand.Parameters.AddWithValue("@def", 10);
                     insertCommand.ExecuteNonQuery();
                     insertCommand.Parameters.Clear();
                 }
@@ -1057,7 +1057,7 @@ namespace Projeto_em_grupo_RPG_Senac
             Jogador.Atualizar.Nome("Jorginho");
             Jogador.Atualizar.HP(40);
             Jogador.Atualizar.ATA(15);
-            Jogador.Atualizar.DEF(20);
+            Jogador.Atualizar.DEF(10);
 
             Item.Atualizar.Todos(0);
         }
@@ -1161,12 +1161,12 @@ namespace Projeto_em_grupo_RPG_Senac
             {
                 case 1:
                     Usual.Escrever("Você pede ajuda à mulher e diz tudo o que aconteceu com você. Ela tem compaixão de sua situação, e te dá comida e bebida, mas diz que não pode ficar aqui. " +
-                        "\n\n- (1) Lata de comida" +
+                        "\n\n- (2) Lata de comida" +
                         "\n- (1) Vodka" +
                         "\n\nAntes de você partir, ela diz conhecer um lugar onde você pode encontrar a peça necessária para consertar o rádio do avião." +
                         "\n\n[1] Ir até o local", ReadKey: true);
 
-                    Item.Atualizar.LataDeComida(Item.Ler.LataDeComida() + 1);
+                    Item.Atualizar.LataDeComida(Item.Ler.LataDeComida() + 2);
                     Item.Atualizar.Vodka(Item.Ler.Vodka() + 1);
 
                     break;
@@ -1176,7 +1176,6 @@ namespace Projeto_em_grupo_RPG_Senac
                     Usual.Escolha(1);
                     break;
             }
-
 
             Usual.Escrever("Chegando lá, você se depara com um galpão de suprimentos militares e encontra um esquadrão inimigo." +
                 "\n\n[1] Modo furtivo" +
@@ -1189,9 +1188,9 @@ namespace Projeto_em_grupo_RPG_Senac
                     Usual.Escrever("Você entra furtivamente na instalação e consegue passar entre as tropas. Porém, há um guarda na entrada do galpão vindo em sua direção." +
                         "\n\n");
 
-                    int hpEnemy = 35;
-                    int ataEnemy = 15;
-                    int defEnemy = 10;
+                    int hpEnemy = 80;
+                    int ataEnemy;
+                    int defEnemy;
                     bool defesa = false;
                     Random randint = new Random();
 
@@ -1203,6 +1202,9 @@ namespace Projeto_em_grupo_RPG_Senac
                         "\n\n[1] Ataque" +
                         "\n\n[2] Defesa" +
                         "\n\n[3] Usar item");
+
+                        ataEnemy = randint.Next(5, 21);
+                        defEnemy = randint.Next(5, 31);
 
                         switch (Usual.Escolha(3))
                         {
@@ -1232,9 +1234,9 @@ namespace Projeto_em_grupo_RPG_Senac
                                     case 1:
                                         if (Banco.Item.Ler.LataDeComida() > 0)
                                         {
-                                            Usual.Escrever("Você comeu uma lata de comida, recuperando 15 de HP.");
+                                            Usual.Escrever("Você comeu uma lata de comida, recuperando 20 de HP.");
                                             Banco.Item.Atualizar.LataDeComida(Banco.Item.Ler.LataDeComida() - 1);
-                                            Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() + 15);
+                                            Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() + 20);
                                         }
                                         else
                                         {
@@ -1296,8 +1298,15 @@ namespace Projeto_em_grupo_RPG_Senac
 
                             if (defesa)
                             {
-                                Usual.Escrever($"O inimigo te ataca, causando {ataEnemy - Banco.Jogador.Ler.DEF()} de dano.");
-                                Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() - (ataEnemy - Banco.Jogador.Ler.DEF()));
+                                if (ataEnemy - Banco.Jogador.Ler.DEF() > 0)
+                                {
+                                    Usual.Escrever($"O inimigo te ataca, causando {ataEnemy - Banco.Jogador.Ler.DEF()} de dano.");
+                                    Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() - (ataEnemy - Banco.Jogador.Ler.DEF()));
+                                }
+                                else
+                                {
+                                    Usual.Escrever("O inimigo não te causa dano.");
+                                }
                             }
                             else
                             {
@@ -1327,8 +1336,9 @@ namespace Projeto_em_grupo_RPG_Senac
 
                     Usual.Escrever("Você invade a instalação, alertando todas as tropas nazistas. Você se depara com um esquadrão de 5 nazistas vigiando a entrada do galpão, armados até os dentes.");
 
-                    int hpEnemy2 = 50;
+                    int hpEnemy2 = 150;
                     int ataEnemy2 = 15;
+
                     bool defesa2 = false;
 
                     Random randint2 = new Random();
@@ -1373,9 +1383,9 @@ namespace Projeto_em_grupo_RPG_Senac
                                         {
                                             if (randint2.Next(1, 101) <= 70) // 70% de chance de acertar
                                             {
-                                                Usual.Escrever("Você comeu uma lata de comida, recuperando 15 de HP.");
+                                                Usual.Escrever("Você comeu uma lata de comida, recuperando 20 de HP.");
                                                 Banco.Item.Atualizar.LataDeComida(Banco.Item.Ler.LataDeComida() - 1);
-                                                Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() + 15);
+                                                Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() + 20);
                                             }
                                             else
                                             {
@@ -1414,7 +1424,7 @@ namespace Projeto_em_grupo_RPG_Senac
                                     case 3:
                                         if (Banco.Item.Ler.FrascoSuspeito() > 0)
                                         {
-                                            if (randint2.Next(1, 101) <= 30) // 30% de chance de acertar
+                                            if (randint2.Next(1, 101) <= 70) // 70% de chance de acertar (morre)
                                             {
                                                 Usual.Escrever("Você bebeu o frasco suspeito, que era um veneno, então você morreu.");
                                                 Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() - 1);
@@ -1462,10 +1472,25 @@ namespace Projeto_em_grupo_RPG_Senac
 
                         if (randint2.Next(1, 101) < 50)
                         {
-                            int ataqueAleatorio = randint2.Next(10, 21); // Ataque aleatório entre 10 e 20
-                            int ataqueInimigo = defesa2 ? ataqueAleatorio - Banco.Jogador.Ler.DEF() : ataqueAleatorio;
-                            Usual.Escrever($"O inimigo te ataca, causando {ataqueInimigo} de dano.");
-                            Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() - ataqueInimigo);
+                            int ataqueAleatorio = randint2.Next(5, 16); // Ataque aleatório entre 5 e 15
+
+                            if (defesa2)
+                            {
+                                if (ataqueAleatorio - Banco.Jogador.Ler.DEF() > 0)
+                                {
+                                    Usual.Escrever($"O inimigo te ataca, causando {ataqueAleatorio - Banco.Jogador.Ler.DEF()} de dano.");
+                                    Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() - (ataqueAleatorio - Banco.Jogador.Ler.DEF()));
+                                }
+                                else
+                                {
+                                    Usual.Escrever("O inimigo não te causa dano.");
+                                }
+                            }
+                            else
+                            {
+                                Usual.Escrever($"O inimigo te ataca, causando {ataqueAleatorio} de dano.");
+                                Banco.Jogador.Atualizar.HP(Banco.Jogador.Ler.HP() - ataqueAleatorio);
+                            }       
                         }
                         else
                         {

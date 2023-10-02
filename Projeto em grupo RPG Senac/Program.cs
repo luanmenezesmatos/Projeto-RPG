@@ -53,6 +53,7 @@ class Program
                 switch (Usual.Escolha(2))
                 {
                     case 1:
+                        bool SuprimentosResgatados = false;
                     Casa:
 
                         Usual.Escrever("Você entra na casa... Ela aparentemente está vazia." +
@@ -67,14 +68,25 @@ class Program
                                 Usual.Escolha(1);
                                 goto Casa;
                             case 2:
-                                Usual.Escrever("Você achou alguns suprimentos." +
-                                    "\n\n- (3) Lata de comida" +
-                                    "\n- (2) Pentes de munição" +
-                                    "\n\n[1] Voltar");
+                                if (SuprimentosResgatados)
+                                {
+                                    Usual.Escrever("Não há nenhum suprimento disponível na casa." +
+                                        "\n\n[1] Voltar");
+                                }
+                                else
+                                {
+                                    Usual.Escrever("Você achou alguns suprimentos." +
+                                                                        "\n\n- (5) Lata de comida" +
+                                                                        "\n- (2) Pentes de munição" +
+                                                                        "\n\n[1] Voltar");
 
-                                Banco.Item.Atualizar.LataDeComida(Banco.Item.Ler.LataDeComida() + 3);
-                                Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 2);
+                                    Banco.Item.Atualizar.LataDeComida(Banco.Item.Ler.LataDeComida() + 5);
+                                    Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 2);
+                                    Banco.Jogador.Atualizar.ATA(Banco.Jogador.Ler.ATA() + 4);
 
+                                    SuprimentosResgatados = true;
+                                }
+                                
                                 Usual.Escolha(1);
                                 goto Casa;
                             case 3:
@@ -195,6 +207,8 @@ class Program
                                                                         Banco.Item.Atualizar.Munição(Banco.Item.Ler.Munição() + 3);
                                                                         Banco.Item.Atualizar.CapaceteUsado(Banco.Item.Ler.CapaceteUsado() + 1);
                                                                         Banco.Item.Atualizar.FrascoSuspeito(Banco.Item.Ler.FrascoSuspeito() + 1);
+                                                                        Banco.Jogador.Atualizar.ATA(Banco.Jogador.Ler.ATA() + 6);
+                                                                        Banco.Jogador.Atualizar.DEF(Banco.Jogador.Ler.DEF() + 12);
 
                                                                         partiu = true;
 
