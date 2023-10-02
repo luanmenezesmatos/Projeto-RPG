@@ -1321,6 +1321,7 @@ namespace Projeto_em_grupo_RPG_Senac
                             inimigoDerrotado = true;
                         }
                     }
+                    break;
                 case 2:
                     // MODO PORRA LOCA
 
